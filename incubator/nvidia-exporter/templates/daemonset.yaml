@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet 
+metadata:
+  name: {{ template "nvidia-exporter.fullname" . }}
+  labels:
+    app: {{ template "nvidia-exporter.name" . }}
+    chart: {{ template "nvidia-exporter.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "nvidia-exporter.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
+      labels:
+        app: {{ template "nvidia-exporter.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }} 
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+              - cat
+              - {{ .Values.nvml.libPath }} 
+          volumeMounts:
+            - mountPath: /usr/lib/nvidia
+              name: nvidia
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+        - name: nvidia
+          hostPath:
+            path: {{ .Values.nvml.libHostDir }} 
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
