@@ -26,6 +26,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: LD_LIBRARY_PATH
+              value: "/usr/lib/nvidia"
           ports:
             - containerPort: {{ .Values.containerPort }} 
               protocol: TCP
