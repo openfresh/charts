@@ -1,9 +1,24 @@
 apiVersion: v1
 entries:
+  external-ips:
+  - apiVersion: v1
+    appVersion: 0.1.0
+    created: 2018-08-08T16:23:57.365776204+09:00
+    description: Configure external DNS servers (AWS Route53) for Kubernetes Services
+      with External IPs
+    digest: 9a7f1118c6fd8c3bc422b699dc6726b8deddcfa064b5864228ad10fa115aa583
+    engine: gotpl
+    home: https://github.com/openfresh/external-ips
+    name: external-ips
+    sources:
+    - https://github.com/openfresh/external-ips
+    urls:
+    - external-ips-0.1.0.tgz
+    version: 0.1.0
   nvidia-exporter:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-31T16:28:14.887336+09:00
+    created: 2018-08-08T16:23:57.366536546+09:00
     description: A Helm chart for Kubernetes
     digest: 30cf3ff0bf1c87b265301fdb97b0bbaf32640a05efe83d3c9a112dc5974e4a88
     name: nvidia-exporter
@@ -12,7 +27,7 @@ entries:
     version: 0.0.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-31T16:28:14.887143+09:00
+    created: 2018-08-08T16:23:57.36631175+09:00
     description: A Helm chart for Kubernetes
     digest: 93926903df2b9fcc13e7ef4ffee187343be4a922e9ab7a2398f631be7be450e1
     name: nvidia-exporter
@@ -21,11 +36,11 @@ entries:
     version: 0.0.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-07-31T16:28:14.886937+09:00
+    created: 2018-08-08T16:23:57.366037843+09:00
     description: A Helm chart for Kubernetes
     digest: cab048a1e77ad79d754624814d7f32ad262fb077b87b33dede16baad0d343d51
     name: nvidia-exporter
     urls:
     - nvidia-exporter-0.0.1.tgz
     version: 0.0.1
-generated: 2018-07-31T16:28:14.886622+09:00
+generated: 2018-08-08T16:23:57.364753087+09:00
