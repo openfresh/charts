@@ -1,10 +1,12 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels: {{ include "external-ips.labels" . | indent 4 }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
   name: {{ template "external-ips.fullname" . }}
 spec:
+  selector:
+    matchLabels: {{ include "external-ips.labels" . | indent 6 }}
   template:
     metadata:
     {{- if .Values.podAnnotations }}
