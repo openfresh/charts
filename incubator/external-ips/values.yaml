@@ -1,0 +1,93 @@
+## Details about the image to be pulled.
+image:
+  name: openfresh/external-ips
+  tag: v0.1.0
+  pullSecrets: []
+  pullPolicy: IfNotPresent
+
+## This controls which types of resource external-ips should 'watch' for new
+## DNS entries.
+sources:
+  - service
+
+## The DNS provider where the DNS records will be created (options: aws, google, inmemory, azure )
+provider: aws
+
+# AWS Access keys to inject as environment variables
+aws:
+  secretKey: ""
+  accessKey: ""
+  roleArn: ""
+  region: "us-east-1"
+  # Filter for zones of this type (optional, options: public, private)
+  zoneType: ""
+
+## Limit possible target zones by domain suffixes (optional)
+domainFilters: []
+# Filter sources managed by external-ips via annotation using label selector semantics (default: all sources)
+annotationFilter: ""
+
+# Registry to use for ownership (txt or noop)
+registry: "txt"
+
+# When using the TXT registry, a name that identifies this instance of ExternalIPs
+txtOwnerId: ""
+
+## Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## List of node taints to tolerate (requires Kubernetes >= 1.6)
+tolerations: []
+
+## Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+policy: upsert-only
+
+## Annotations to be added to pods
+##
+podAnnotations: {}
+
+podLabels: {}
+
+# Verbosity of the logs (options: panic, debug, info, warn, error, fatal)
+logLevel: info
+
+extraArgs: {}
+
+extraEnv: {}
+
+## CPU and Memory limit and request for external-ips
+resources: {}
+#  limits:
+#    memory: 50Mi
+#  requests:
+#    memory: 50Mi
+#    cpu: 10m
+
+rbac:
+  ## If true, create & use RBAC resources
+  ##
+  create: false
+  # Beginning with Kubernetes 1.8, the api is stable and v1 can be used.
+  apiVersion: v1beta1
+
+  ## Ignored if rbac.create is true
+  ##
+  serviceAccountName: default
+
+service:
+  annotations: {}
+  clusterIP: ""
+
+  ## List of IP addresses at which the service is available
+  ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+  ##
+  externalIPs: []
+
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  servicePort: 7979
+  type: ClusterIP
+
+priorityClassName: ""
